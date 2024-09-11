@@ -19,3 +19,5 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 //商品
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
+Route::get('/display_item', [ItemController::class, 'create'])->name('item.create'); // 出品ページの表示
+Route::post('/display_item', [ItemController::class, 'store'])->name('item.store');  // 出品アイテムの保存
