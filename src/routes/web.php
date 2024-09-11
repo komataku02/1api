@@ -21,3 +21,5 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/display_item', [ItemController::class, 'create'])->name('item.create'); // 出品ページの表示
 Route::post('/display_item', [ItemController::class, 'store'])->name('item.store');  // 出品アイテムの保存
+
+Route::get('mypage', [UserController::class, 'mypage'])->name('user.mypage')->middleware('auth');

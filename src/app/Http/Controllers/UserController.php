@@ -54,4 +54,12 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function mypage()
+    {
+        $user = Auth::user();
+        $items = $user->items; // ログインユーザーの出品したアイテム
+
+        return view('user.mypage', compact('user', 'items'));
+    }
 }
