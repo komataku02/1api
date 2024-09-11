@@ -8,12 +8,20 @@ use App\Models\Category;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // 商品を全件取得
-        $items = Item::all();
+        $query = $request->input('query');
 
-        // ビューにデータを渡して表示
+        if ($query) {
+            // 検索クエリがあれば、その結果を取得
+            $items = Item::where('name', 'like', "%{$query}%")
+            ->orWhere('description', 'like', "%{$query}%")
+            ->get();
+        } else {
+            // 検索クエリがない場合は全ての商品を取得
+            $items = Item::all();
+        }
+
         return view('items.index', compact('items'));
     }
 
@@ -52,4 +60,15 @@ class ItemController extends Controller
 
         return redirect()->route('home')->with('success', 'アイテムが正常に出品されました！');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $items = Item::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->get();
+
+        return view('items.index', compact('items'));
+    }
+
 }
